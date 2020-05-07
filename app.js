@@ -14,7 +14,7 @@ container.append(ul);
 const input = document.querySelector('input[type="text"]');
 
 function createTodo() {
-  const li = document.createElement("li");
+  const createLi = document.createElement("li");
   const span = document.createElement("span");
 
   span.classList.add("todo-text");
@@ -26,7 +26,9 @@ function createTodo() {
   delBtn.classList.add('delete-todo');
   delBtn.innerHTML = 'delete';
 
-  ul.appendChild(li).append(span, delBtn);
+  ul.appendChild(createLi).append(span, delBtn);
+  const li = document.querySelector('li');
+  localStorage.setItem('todos', ul.innerHTML);
   input.value = "";
 
   deleteTodo(delBtn);
@@ -35,9 +37,24 @@ function createTodo() {
 function deleteTodo(element) {
     element.addEventListener("click", (event) => {
         element.parentElement.remove();
+        localStorage.setItem('todos', ul.innerHTML);
         event.stopPropagation();
-    })
+    });
+    
 }
+
+function loadTodo() {
+    const data = localStorage.getItem('todos');
+    if (data) {
+        ul.innerHTML = data;
+    }
+
+    const delBtn = document.querySelectorAll('.delete-todo');
+    for (const btn of delBtn) {
+        deleteTodo(btn);
+    }
+}
+loadTodo()
 
 input.addEventListener("keypress", (keyPressed) => {
   if (keyPressed.which === 13 && input.value !== "") {
