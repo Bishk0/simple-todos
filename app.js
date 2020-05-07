@@ -22,8 +22,21 @@ function createTodo() {
   const newTodo = input.value;
   span.append(newTodo);
 
-  ul.appendChild(li).append(span);
+  const delBtn = document.createElement('span')
+  delBtn.classList.add('delete-todo');
+  delBtn.innerHTML = 'delete';
+
+  ul.appendChild(li).append(span, delBtn);
   input.value = "";
+
+  deleteTodo(delBtn);
+}
+
+function deleteTodo(element) {
+    element.addEventListener("click", (event) => {
+        element.parentElement.remove();
+        event.stopPropagation();
+    })
 }
 
 input.addEventListener("keypress", (keyPressed) => {
