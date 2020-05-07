@@ -1,10 +1,55 @@
+.container {
+  width: 85%;
+  margin: 0 auto;
+  text-align: center;
+}
+
 input {
-  width: 300px;
-  padding: 5px 7px;
+  width: 75%;
+  padding: 7px 10px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px 0;
+  border-bottom: 1px solid grey;
   font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+li > span:first-child {
+  text-align: left;
+  margin-left: 5%;
+  width: 90%;
+}
+
+li > span:last-child {
+  margin-right: 5%;
+}
+
+.todo-text {
+    cursor: pointer;
 }
 
 .delete-todo {
-    cursor: pointer;
-    margin-left: 25px;
+  cursor: pointer;
+  background: #f0f0f0;
+  padding: 3px;
+  border: 1px solid #f0f0f0;
+  border-radius: 7px;
+}
+
+.checked {
+  text-decoration: line-through;
 }

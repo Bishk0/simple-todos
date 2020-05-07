@@ -4,7 +4,7 @@ const createInput = document.createElement("input");
 const ul = document.createElement("ul");
 
 createInput.setAttribute("type", "text");
-createInput.setAttribute("placeholder", "Додайте нагадування чи подію");
+createInput.setAttribute("placeholder", "Add todo");
 
 ul.classList.add("todos");
 
@@ -22,42 +22,49 @@ function createTodo() {
   const newTodo = input.value;
   span.append(newTodo);
 
-  const delBtn = document.createElement('span')
-  delBtn.classList.add('delete-todo');
-  delBtn.innerHTML = 'delete';
+  const delBtn = document.createElement("span");
+  delBtn.classList.add("delete-todo");
+  delBtn.innerHTML = "Delete";
 
-  ul.appendChild(createLi).append(span, delBtn);
-  const li = document.querySelector('li');
-  localStorage.setItem('todos', ul.innerHTML);
+  ul.insertBefore(createLi, ul.firstChild).append(span, delBtn);
+
+  localStorage.setItem("todos", ul.innerHTML);
   input.value = "";
 
   deleteTodo(delBtn);
 }
 
 function deleteTodo(element) {
-    element.addEventListener("click", (event) => {
-        element.parentElement.remove();
-        localStorage.setItem('todos', ul.innerHTML);
-        event.stopPropagation();
-    });
-    
+  element.addEventListener("click", (event) => {
+    element.parentElement.remove();
+    localStorage.setItem("todos", ul.innerHTML);
+    event.stopPropagation();
+  });
 }
 
 function loadTodo() {
-    const data = localStorage.getItem('todos');
-    if (data) {
-        ul.innerHTML = data;
-    }
+  const data = localStorage.getItem("todos");
+  if (data) {
+    ul.innerHTML = data;
+  }
 
-    const delBtn = document.querySelectorAll('.delete-todo');
-    for (const btn of delBtn) {
-        deleteTodo(btn);
-    }
+  const delBtn = document.querySelectorAll(".delete-todo");
+  for (const btn of delBtn) {
+    deleteTodo(btn);
+  }
 }
-loadTodo()
+loadTodo();
 
 input.addEventListener("keypress", (keyPressed) => {
   if (keyPressed.which === 13 && input.value !== "") {
     createTodo();
   }
 });
+
+const todoText = document.querySelectorAll(".todo-text");
+for (const todo of todoText) {
+  todo.addEventListener("click", () => {
+    todo.classList.toggle("checked");
+    localStorage.setItem("todos", ul.innerHTML);
+  });
+}
